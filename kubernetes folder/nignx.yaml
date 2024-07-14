@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: cut
   labels:
     app: nginx
 spec:
@@ -15,7 +15,21 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx
+      - name: nginx-test
         image: nginx:1.14.2
         ports:
         - containerPort: 80
+          name: http-web-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: nginx
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
