@@ -8,3 +8,18 @@ spec:
     image: nginx:1.14.2
     ports:
     - containerPort: 80
+      name: http-web-svc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: nginx
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
